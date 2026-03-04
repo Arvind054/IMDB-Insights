@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Star, Bot, ThumbsUp, ThumbsDown, Minus, Info } from 'lucide-react';
+import { Search, Star, Bot, ThumbsUp, ThumbsDown, Minus, Info, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type MovieData = {
@@ -125,12 +125,22 @@ export default function Home() {
           <AnimatePresence>
             {error && (
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="text-red-400 mt-4 font-inter text-sm"
+                initial={{ opacity: 0, height: 0, y: -10 }}
+                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                exit={{ opacity: 0, height: 0, y: -10 }}
+                className="mt-6"
               >
-                {error}
+                <div className="bg-red-500/10 border border-red-500/20 backdrop-blur-md rounded-2xl p-4 flex items-start gap-3 text-left">
+                  <div className="bg-red-500/20 rounded-full p-2 flex-shrink-0 mt-0.5">
+                    <AlertTriangle className="w-5 h-5 text-red-500" />
+                  </div>
+                  <div>
+                    <h4 className="text-red-500 font-semibold text-sm uppercase tracking-wider mb-1">Error fetching insights</h4>
+                    <p className="text-red-400 font-inter text-sm leading-relaxed">
+                      {error}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
